@@ -8,6 +8,7 @@
 #	#  tests/TestButterWorthFilter.cpp
 #	#  tests/TestSyncManager.cpp
 #  )
+find_package(OpenSim 4.0 REQUIRED PATHS "${OPENSIM_INSTALL_DIR}")
 
 # dependencies
 include_directories(include/)
