@@ -12,22 +12,11 @@ find_package(OpenSim 4.0 REQUIRED PATHS "${OPENSIM_INSTALL_DIR}")
 
 # dependencies
 include_directories(include/)
-set(DEPENDENCY_LIBRARIES ${OpenSim_LIBRARIES})
+#set(DEPENDENCY_LIBRARIES ${OpenSim_LIBRARIES})
 
 # dynamic library
-set(target Examp)
+#set(target Examp)
 
 add_executable(example src/example.cpp )
 
-addLibrary(
-  KIT ${target}
-  SOURCES ${sources}
-  INCLUDES ${includes}
-  LINKLIBS ${DEPENDENCY_LIBRARIES}
-  )
-#
-## tests
-#addTests(
-#  TESTPROGRAMS ${tests}
-#  LINKLIBS ${target} ${DEPENDENCY_LIBRARIES}
-#  )
+target_link_libraries(example ${OpenSim_LIBRARIES})
