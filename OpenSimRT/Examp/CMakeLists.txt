@@ -19,12 +19,12 @@ set(target Examp)
 
 add_executable(example src/example.cpp )
 
-#addLibrary(
-#  KIT ${target}
-#  SOURCES ${sources}
-#  INCLUDES ${includes}
-#  LINKLIBS ${DEPENDENCY_LIBRARIES}
-#  )
+addLibrary(
+  KIT ${target}
+  SOURCES ${sources}
+  INCLUDES ${includes}
+  LINKLIBS ${DEPENDENCY_LIBRARIES}
+  )
 #
 ## tests
 #addTests(
