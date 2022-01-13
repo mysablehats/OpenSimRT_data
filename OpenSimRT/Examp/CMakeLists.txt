@@ -14,7 +14,7 @@ include_directories(include/)
 set(DEPENDENCY_LIBRARIES ${OpenSim_LIBRARIES})
 
 # dynamic library
-#set(target Examp)
+set(target Examp)
 
 add_executable(example src/example.cpp )
 
