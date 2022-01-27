@@ -12,5 +12,8 @@ endif()
 if(BUILD_IMU)
   add_subdirectory(IMU)
 endif()
+if(BUILD_UIMU)
+  add_subdirectory(UIMU)
+endif()
 
 add_subdirectory(Examp)
