@@ -13,10 +13,10 @@
 //#define MAXLINE 1024
 
 // Driver code
-SimpleServer::SimpleServer (const int PORT = 8080, const int MAXLINE = 1024) {
+SimpleServer::SimpleServer (int PORT = 8080, int MAXLINE = 1024) {
 	//socklen_t sockfd;
 	buffer = new char[MAXLINE];
-	char const *hello = "Hello from server";
+	hello = "Hello from server";
 	buffersize = MAXLINE;
 	//struct sockaddr_in servaddr, cliaddr;
 	
@@ -47,7 +47,7 @@ SimpleServer::SimpleServer (const int PORT = 8080, const int MAXLINE = 1024) {
 	len = sizeof(cliaddr); //len is value/resuslt
 }
 
-SimpleServer::receive()
+int SimpleServer::receive()
 {
 	n = recvfrom(sockfd, (char *)buffer, buffersize,
 				MSG_WAITALL, ( struct sockaddr *) &cliaddr,

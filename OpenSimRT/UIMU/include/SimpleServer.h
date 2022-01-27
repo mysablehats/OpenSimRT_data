@@ -11,10 +11,11 @@
 
 class SimpleServer {
  public:
-	SimpleServer(const int PORT, const int MAXLINE);
+	SimpleServer(int, int );
 	~SimpleServer();
 	char* buffer;
-	const int buffersize;
+	char* hello;
+	int buffersize;
 	socklen_t sockfd, len, n;
 	struct sockaddr_in servaddr, cliaddr;	
 
