@@ -73,7 +73,8 @@ void run() {
             model, imuObservationOrder, imuTasks);
 
     // ngimu input data driver from file
-    UIMUInputDriver driver(ngimuDataFile, rate);
+    //UIMUInputDriver driver(ngimuDataFile, rate);
+    UIMUInputDriver driver(8080, rate);
     driver.startListening();
 
     // calibrator
