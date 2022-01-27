@@ -20,7 +20,6 @@
 #include "UIMUInputDriver.h"
 #include "Exception.h"
 #include <iostream>
-#include "SimpleServer.h"
 
 using namespace OpenSimRT;
 using namespace SimTK;
