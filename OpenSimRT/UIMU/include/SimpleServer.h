@@ -11,6 +11,6 @@ class SimpleServer {
 	struct sockaddr_in servaddr, cliaddr;	
 
 	int receive();
-}
+};
 
 }
