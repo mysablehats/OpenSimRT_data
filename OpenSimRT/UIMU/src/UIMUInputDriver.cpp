@@ -24,9 +24,11 @@
 using namespace OpenSimRT;
 using namespace SimTK;
 
-UIMUInputDriver::UIMUInputDriver(const std::string& fileName,
+UIMUInputDriver::UIMUInputDriver(const int port,
                                                    const double& sendRate)
-        : table(fileName), rate(sendRate), terminationFlag(false) {}
+        : rate(sendRate), terminationFlag(false) {}
+
+	// i maybe want to start the server!
 
 UIMUInputDriver::~UIMUInputDriver() { t.join(); }
 

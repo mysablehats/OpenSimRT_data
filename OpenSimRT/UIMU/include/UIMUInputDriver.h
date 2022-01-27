@@ -41,7 +41,7 @@ class  UIMUInputDriver : public InputDriver<UIMUData> {
     /**
      * Create a NGIMU driver that streams data from file at a constant rate.
      */
-    UIMUInputDriver(const std::string& fileName,
+    UIMUInputDriver(const int port,
                              const double& sendRate);
     ~UIMUInputDriver(); // dtor
 
