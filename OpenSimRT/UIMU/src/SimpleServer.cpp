@@ -47,6 +47,10 @@ SimpleServer::SimpleServer (int PORT = 8080, int MAXLINE = 1024) {
 	len = sizeof(cliaddr); //len is value/resuslt
 }
 
+SimpleServer::~SimpleServer(void)
+{
+}
+
 int SimpleServer::receive()
 {
 	n = recvfrom(sockfd, (char *)buffer, buffersize,

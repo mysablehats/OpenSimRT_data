@@ -30,6 +30,7 @@
 #include <Common/TimeSeriesTable.h>
 #include <condition_variable>
 #include <thread>
+#include "SimpleServer.h"
 
 namespace OpenSimRT {
 
@@ -79,6 +80,10 @@ class  UIMUInputDriver : public InputDriver<UIMUData> {
      * values from the table as a SimTK::Vector. (i.e., time and row from table)
      */
     std::pair<double, SimTK::Vector> getFrameAsVector() const;
+
+    // Simple UDP server implementation
+    SimpleServer::SimpleServer server;
+
 
  protected:
     /**

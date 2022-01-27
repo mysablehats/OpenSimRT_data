@@ -20,13 +20,14 @@
 #include "UIMUInputDriver.h"
 #include "Exception.h"
 #include <iostream>
+#include "SimpleServer.h"
 
 using namespace OpenSimRT;
 using namespace SimTK;
 
 UIMUInputDriver::UIMUInputDriver(const int port,
                                                    const double& sendRate)
-        : rate(sendRate), terminationFlag(false) {}
+        :server(port, 1024), rate(sendRate), terminationFlag(false) {}
 
 	// i maybe want to start the server!
 
