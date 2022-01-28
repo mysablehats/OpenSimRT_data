@@ -21,7 +21,7 @@
 #include "Exception.h"
 #include <iostream>
 #include <vector>
-
+#include <array>
 using namespace OpenSimRT;
 using namespace SimTK;
 
@@ -53,8 +53,8 @@ void UIMUInputDriver::startListening() {
 		    table.appendRow(output); // superflex!
 		    //table.getMatrix()[0]; // OpenSim::TimeSeriesTable 
 		//this will crash because table was not initialized.
-                    time = table.getIndependentColumn()[i];
-                    frame = table.getMatrix()[i];
+                    time = table.getIndependentColumn().back();
+                    frame = table.getMatrix().back();
                     newRow = true;
                 }
                 cond.notify_one();
