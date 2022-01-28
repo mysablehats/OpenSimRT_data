@@ -66,7 +66,7 @@ std::vector<double> SimpleServer::receive()
 	ss << buffer;
 	std::istream_iterator<std::string> begin(ss), end;
 	std::vector<std::string> vstrings(begin, end);
-	std::copy(vstrings.begin(), vstrings.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
+	//std::copy(vstrings.begin(), vstrings.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
 	std::vector<double> myvec;
 
 	for (auto a_str : vstrings)
@@ -74,9 +74,9 @@ std::vector<double> SimpleServer::receive()
 		myvec.push_back(std::stod(a_str));
 	}
 
-	//for (auto a_double : myvec )
-	//	std::cout << a_double << " ";
-	//std::cout << std::endl ;
+	for (auto a_double : myvec )
+		std::cout << a_double << "|";
+	std::cout << std::endl ;
 
 	printf("Client : %s\n", buffer);
 	sendto(sockfd, (const char *)hello, strlen(hello),
