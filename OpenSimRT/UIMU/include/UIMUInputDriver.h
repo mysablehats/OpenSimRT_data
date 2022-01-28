@@ -82,7 +82,7 @@ class  UIMUInputDriver : public InputDriver<UIMUData> {
     std::pair<double, SimTK::Vector> getFrameAsVector() const;
 
     // Simple UDP server implementation
-    SimpleServer::SimpleServer server;
+    SimpleServer server;
 
 
  protected:
