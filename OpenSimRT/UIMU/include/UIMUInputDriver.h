@@ -97,12 +97,12 @@ class  UIMUInputDriver : public InputDriver<UIMUData> {
 
  private:
     //OpenSim::TimeSeriesTable table;
-    std::vector<double> output;
+    //std::vector<double> output;
 
     double rate;
     
     // buffers
-    //SimTK::RowVector frame;
+    SimTK::RowVector frame;
     double time;
 
     // thread related variables
