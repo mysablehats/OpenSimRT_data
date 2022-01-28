@@ -69,6 +69,8 @@ void UIMUInputDriver::startListening() {
         }
     };
     t = std::thread(f);
+    // this is threaded, so this guy should work too!
+    std::cout << "did this as well!" << std::endl;
 }
 
 bool UIMUInputDriver::shouldTerminate() {
