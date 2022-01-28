@@ -102,7 +102,7 @@ class  UIMUInputDriver : public InputDriver<UIMUData> {
     double rate;
     
     // buffers
-    SimTK::Vector frame;
+    SimTK::RowVector frame;
     double time;
 
     // thread related variables
