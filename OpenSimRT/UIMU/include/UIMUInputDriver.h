@@ -31,6 +31,7 @@
 #include <condition_variable>
 #include <thread>
 #include "SimpleServer.h"
+#include <vector>
 
 namespace OpenSimRT {
 
@@ -95,11 +96,13 @@ class  UIMUInputDriver : public InputDriver<UIMUData> {
     void stopListening() override {}
 
  private:
-    OpenSim::TimeSeriesTable table;
-    double rate;
+    //OpenSim::TimeSeriesTable table;
+    std::vector<double> output;
 
+    double rate;
+    
     // buffers
-    SimTK::RowVector frame;
+    //SimTK::RowVector frame;
     double time;
 
     // thread related variables

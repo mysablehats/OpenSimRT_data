@@ -12,6 +12,13 @@
 //#define PORT	 8080
 //#define MAXLINE 1024
 
+#include <iostream>
+#include <sstream>
+#include <iterator>
+#include <vector>
+
+
+
 // Driver code
 SimpleServer::SimpleServer (int PORT = 8080, int MAXLINE = 1024) {
 	//socklen_t sockfd;
@@ -51,18 +58,34 @@ SimpleServer::~SimpleServer(void)
 {
 }
 
-int SimpleServer::receive()
+std::vector<double> SimpleServer::receive()
 {
 	n = recvfrom(sockfd, (char *)buffer, buffersize,
 				MSG_WAITALL, ( struct sockaddr *) &cliaddr,
 				&len);
 	buffer[n] = '\0';
+        std::stringstream ss;
+	ss << buffer;
+	std::istream_iterator<std::string> begin(ss), end;
+	std::vector<std::string> vstrings(begin, end);
+	std::copy(vstrings.begin(), vstrings.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
+	std::vector<double> myvec;
+
+	for (auto a_str : vstrings)
+	{
+		myvec.push_back(std::stod(a_str));
+	}
+
+	//for (auto a_double : myvec )
+	//	std::cout << a_double << " ";
+	//std::cout << std::endl ;
+
 	printf("Client : %s\n", buffer);
 	sendto(sockfd, (const char *)hello, strlen(hello),
 		MSG_CONFIRM, (const struct sockaddr *) &cliaddr,
 			len);
 	printf("Hello message sent.\n");
 	
-	return 0;
+	return myvec;
 }
 

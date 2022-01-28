@@ -19,6 +19,6 @@ class SimpleServer {
 	socklen_t sockfd, len, n;
 	struct sockaddr_in servaddr, cliaddr;	
 
-	int receive();
+	std::vector<double> receive();
 };
 

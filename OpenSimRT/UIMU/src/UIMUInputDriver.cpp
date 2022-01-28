@@ -20,6 +20,7 @@
 #include "UIMUInputDriver.h"
 #include "Exception.h"
 #include <iostream>
+#include <vector>
 
 using namespace OpenSimRT;
 using namespace SimTK;
@@ -44,7 +45,8 @@ void UIMUInputDriver::startListening() {
 		    std::cout << "MADE TI THIS FAR" << std::endl;
 		    server.receive();
 		// there is no table, so this will be empty
-		time = 0.0; // probably a double
+		    
+		    time = output[0]; // probably a double
 		frame = table.getMatrix()[0]; // OpenSim::TimeSeriesTable 
 		//this will crash because table was not initialized.
                     //time = table.getIndependentColumn()[i];
