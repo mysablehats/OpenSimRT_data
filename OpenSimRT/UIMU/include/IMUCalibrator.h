@@ -154,6 +154,7 @@ class  IMUCalibrator {
             while (i < numSamples) {
                 // get frame measurements. `getData()` is common to all input
                 // drivers
+		    std::cout << "am i stuck here?" << std::endl;
                 initIMUDataTable.push_back(m_driver->getData());
                 ++i;
             }
