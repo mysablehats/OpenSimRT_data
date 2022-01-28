@@ -43,12 +43,12 @@ void UIMUInputDriver::startListening() {
                     std::lock_guard<std::mutex> lock(mu);
 		// get something from the udp stream
 		    std::cout << "MADE TI THIS FAR" << std::endl;
-		    server.receive(); //probably, or just return this value linke a normal person
+		    std::vector<double> output = server.receive(); //probably, or just return this value linke a normal person
 		   
 		// there is no table, so this will be empty
-		    std::string s(server.buffer);
+		    std::stringstream s(server.buffer);
 		    time = output[0]; // probably a double
-		frame = SimTK::readUnformatted<SimTK::RowVector>(s);// I will keep
+		    SimTK::readUnformatted<SimTK::Vector>(s, frame);// I will keep
 
 			//table.getMatrix()[0]; // OpenSim::TimeSeriesTable 
 		//this will crash because table was not initialized.
