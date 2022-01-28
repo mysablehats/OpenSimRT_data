@@ -9,8 +9,6 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include "SimpleServer.h"
-//#define PORT	 8080
-//#define MAXLINE 1024
 
 #include <iostream>
 #include <sstream>
@@ -20,7 +18,7 @@
 
 
 // Driver code
-SimpleServer::SimpleServer (int PORT = 8080, int MAXLINE = 1024) {
+SimpleServer::SimpleServer (int PORT = 8080, int MAXLINE = 4096) {
 	//socklen_t sockfd;
 	buffer = new char[MAXLINE];
 	hello = "Hello from server";

@@ -27,7 +27,7 @@ using namespace SimTK;
 
 UIMUInputDriver::UIMUInputDriver(const int port,
                                                    const double& sendRate)
-        :server(port, 1024), rate(sendRate), terminationFlag(false) {}
+        :server(port, 4096), rate(sendRate), terminationFlag(false) {}
 
 	// i maybe want to start the server!
 
