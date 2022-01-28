@@ -95,6 +95,8 @@ UIMUInputDriver::fromVector(const Vector& v) const {
     for (int i = 0; i < v.size(); i += n) {
         data.fromVector(v(i, n));
         list.push_back(data);
+	//i have 8 right now so this should tell me 8
+	std::cout << i << "number of vectors I pushed back" << std::endl;
     }
     return list;
 }
