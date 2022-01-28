@@ -98,7 +98,9 @@ void run() {
     try { // main loop
         while (!(driver.shouldTerminate())) {
             // get input from sensors
-            auto imuData = driver.getFrame();
+	    std::cout << "i do this" << std::endl;
+	    auto imuData = driver.getFrame();
+	    std::cout << "and then this" << std::endl;
             numFrames++;
 
             // solve ik
@@ -115,7 +117,8 @@ void run() {
 
             // visualize
             visualizer.update(pose.q);
-
+	    std::cout << "nd then i should have shown somethin" << std::endl;
+	    
             // record
             qLogger.appendRow(pose.t, ~pose.q);
         }
