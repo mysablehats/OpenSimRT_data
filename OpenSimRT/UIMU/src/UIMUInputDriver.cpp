@@ -35,18 +35,26 @@ UIMUInputDriver::~UIMUInputDriver() { t.join(); }
 void UIMUInputDriver::startListening() {
     static auto f = [&]() {
         try {
-            for (int i = 0; i < table.getNumRows(); ++i) {
+            for (;;) {
                 if (shouldTerminate())
-                    THROW_EXCEPTION("File stream terminated.");
+                    THROW_EXCEPTION("??? this is not great. File stream terminated.");
                 {
                     std::lock_guard<std::mutex> lock(mu);
-                    time = table.getIndependentColumn()[i];
-                    frame = table.getMatrix()[i];
+		// get something from the udp stream
+		    std::cout << "MADE TI THIS FAR" << std::endl;
+		    server.receive();
+		// there is no table, so this will be empty
+		time = 0.0; // probably a double
+		frame = table.getMatrix()[0]; // OpenSim::TimeSeriesTable 
+		//this will crash because table was not initialized.
+                    //time = table.getIndependentColumn()[i];
+                    //frame = table.getMatrix()[i];
                     newRow = true;
                 }
                 cond.notify_one();
 
                 // artificial delay
+		// maybe i don't need this.
                 std::this_thread::sleep_for(std::chrono::milliseconds(
                         static_cast<int>(1 / rate * 1000)));
             }
