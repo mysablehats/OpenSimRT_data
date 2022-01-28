@@ -21,7 +21,7 @@
 #include "Exception.h"
 #include <iostream>
 #include <vector>
-#include <array>
+
 using namespace OpenSimRT;
 using namespace SimTK;
 
@@ -36,6 +36,7 @@ UIMUInputDriver::~UIMUInputDriver() { t.join(); }
 void UIMUInputDriver::startListening() {
     static auto f = [&]() {
         try {
+	    int i = 0;
             for (;;) {
                 if (shouldTerminate())
                     THROW_EXCEPTION("??? this is not great. File stream terminated.");
@@ -50,12 +51,13 @@ void UIMUInputDriver::startListening() {
 		    //time = output[0]; // probably a double
 		    //SimTK::readUnformatted<SimTK::Vector>(s, frame);// I will keep
 
-		    table.appendRow(output); // superflex!
+		    table.appendRow(output[0], output.begin()+1, output.end()); // superflex!
 		    //table.getMatrix()[0]; // OpenSim::TimeSeriesTable 
 		//this will crash because table was not initialized.
-                    time = table.getIndependentColumn().back();
-                    frame = table.getMatrix().back();
+                    time = table.getIndependentColumn()[i];
+                    frame = table.getMatrix()[i];
                     newRow = true;
+		    i++;
                 }
                 cond.notify_one();
 
