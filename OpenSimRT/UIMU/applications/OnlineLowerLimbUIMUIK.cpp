@@ -114,11 +114,11 @@ void run() {
             t2 = chrono::high_resolution_clock::now();
             sumDelayMS += chrono::duration_cast<chrono::milliseconds>(t2 - t1)
                                   .count();
-
+            cout << "ik done now showing ?" << endl;
             // visualize
             visualizer.update(pose.q);
 	    std::cout << "nd then i should have shown somethin" << std::endl;
-	    
+
             // record
             qLogger.appendRow(pose.t, ~pose.q);
         }
