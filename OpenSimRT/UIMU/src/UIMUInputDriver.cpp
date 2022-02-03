@@ -45,7 +45,7 @@ void UIMUInputDriver::startListening() {
 		// get something from the udp stream
 		    std::cout << "MADE TI THIS FAR" << std::endl;
 		    std::vector<double> output = server.receive(); //probably, or just return this value linke a normal person
-		   
+
 		// there is no table, so this will be empty
 		    std::stringstream s(server.buffer);
 		    //time = output[0]; // probably a double
@@ -64,7 +64,7 @@ void UIMUInputDriver::startListening() {
                 // artificial delay
 		// maybe i don't need this.
                 std::this_thread::sleep_for(std::chrono::milliseconds(
-                        static_cast<int>(1 / rate * 1000)));
+                        static_cast<int>(1 / rate * 2000)));
             }
             terminationFlag = true;
             cond.notify_one();
