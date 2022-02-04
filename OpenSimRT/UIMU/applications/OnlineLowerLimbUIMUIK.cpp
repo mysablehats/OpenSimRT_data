@@ -115,12 +115,12 @@ void run() {
             sumDelayMS += chrono::duration_cast<chrono::milliseconds>(t2 - t1)
                                   .count();
             cout << "ik done now showing ?" << endl;
+	    std::cout << "numframes" << numFrames << std::endl;
             // visualize
 	    if (numFrames < 10)
             	visualizer.update(pose.q, SimTK::Vector(), false);
 	    else 
             	visualizer.update(pose.q );
-	    std::cout << "numframes" << numFrames << std::endl;
 	    std::cout << "nd then i should have shown somethin" << std::endl;
 
             // record
