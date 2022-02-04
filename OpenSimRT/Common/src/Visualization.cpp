@@ -106,7 +106,8 @@ BasicModelVisualizer::BasicModelVisualizer(const OpenSim::Model& otherModel)
 }
 
 void BasicModelVisualizer::update(const Vector& q,
-                                  const Vector& muscleActivations) {
+                                  const Vector& muscleActivations
+				  bool draw = true) {
 #ifndef CONTINUOUS_INTEGRATION
     fps->calculateLoopDelay();
 #endif
@@ -123,7 +124,8 @@ void BasicModelVisualizer::update(const Vector& q,
         }
     }
 #ifndef CONTINUOUS_INTEGRATION
-    visualizer->report(state);
+    if (draw)
+    	visualizer->report(state);
     // terminate if ESC key is pressed
     unsigned key, modifiers;
     if (silo->takeKeyHit(key, modifiers)) {

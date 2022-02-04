@@ -116,7 +116,8 @@ void run() {
                                   .count();
             cout << "ik done now showing ?" << endl;
             // visualize
-            visualizer.update(pose.q);
+	    if (numFrames < 10)
+            	visualizer.update(pose.q, false);
 	    std::cout << "nd then i should have shown somethin" << std::endl;
 
             // record
