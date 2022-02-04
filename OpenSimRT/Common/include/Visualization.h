@@ -97,7 +97,7 @@ class Common_API BasicModelVisualizer {
     BasicModelVisualizer(const OpenSim::Model& model);
     // Update visualizer state.
     void update(const SimTK::Vector& q,
-                const SimTK::Vector& muscleActivations = SimTK::Vector()
+                const SimTK::Vector& muscleActivations = SimTK::Vector(),
 		bool );
     void updateReactionForceDecorator(
             const SimTK::Vector_<SimTK::SpatialVec>& reactionWrench,
