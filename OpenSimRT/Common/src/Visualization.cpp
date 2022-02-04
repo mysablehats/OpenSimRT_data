@@ -107,7 +107,7 @@ BasicModelVisualizer::BasicModelVisualizer(const OpenSim::Model& otherModel)
 
 void BasicModelVisualizer::update(const Vector& q,
                                   const Vector& muscleActivations,
-				  bool draw = true) {
+				  bool draw ) {
 #ifndef CONTINUOUS_INTEGRATION
     fps->calculateLoopDelay();
 #endif
