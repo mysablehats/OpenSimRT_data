@@ -120,7 +120,7 @@ void run() {
             	visualizer.update(pose.q, SimTK::Vector(), false);
 	    else 
             	visualizer.update(pose.q );
-
+	    std::cout << "numframes" << numFrames << std::endl;
 	    std::cout << "nd then i should have shown somethin" << std::endl;
 
             // record
