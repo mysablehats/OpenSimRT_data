@@ -98,7 +98,7 @@ class Common_API BasicModelVisualizer {
     // Update visualizer state.
     void update(const SimTK::Vector& q,
                 const SimTK::Vector& muscleActivations = SimTK::Vector(),
-		bool );
+		bool draw = true);
     void updateReactionForceDecorator(
             const SimTK::Vector_<SimTK::SpatialVec>& reactionWrench,
             const std::string& reactionOnBody,
