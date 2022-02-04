@@ -117,7 +117,7 @@ void run() {
             cout << "ik done now showing ?" << endl;
             // visualize
 	    if (numFrames < 10)
-            	visualizer.update(pose.q, false);
+            	visualizer.update(pose.q, SimTK::Vector(), false);
 	    std::cout << "nd then i should have shown somethin" << std::endl;
 
             // record
