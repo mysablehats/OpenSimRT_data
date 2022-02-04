@@ -118,6 +118,9 @@ void run() {
             // visualize
 	    if (numFrames < 10)
             	visualizer.update(pose.q, SimTK::Vector(), false);
+	    else 
+            	visualizer.update(pose.q );
+
 	    std::cout << "nd then i should have shown somethin" << std::endl;
 
             // record
