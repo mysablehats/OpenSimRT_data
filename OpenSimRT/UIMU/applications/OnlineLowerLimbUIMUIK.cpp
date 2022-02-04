@@ -116,6 +116,7 @@ void run() {
                                   .count();
 
             // visualize
+	    writeUnformatted(std::cout, pose.q);
             visualizer.update(pose.q);
 	    std::cout << "nd then i should have shown somethin" << std::endl;
 	    
