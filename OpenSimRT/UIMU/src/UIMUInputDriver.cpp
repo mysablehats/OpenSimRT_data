@@ -37,16 +37,18 @@ void UIMUInputDriver::startListening() {
     static auto f = [&]() {
         try {
 	    int i = 0;
+	    std::cout << "Rate: " << rate << std::endl ;
             for (;;) {
                 if (shouldTerminate())
                     THROW_EXCEPTION("??? this is not great. File stream terminated.");
                 {
                     std::lock_guard<std::mutex> lock(mu);
-		// get something from the udp stream
-		    std::cout << "MADE TI THIS FAR" << std::endl;
-		    std::vector<double> output = server.receive(); //probably, or just return this value linke a normal person
-		   
-		// there is no table, so this will be empty
+		    // get something from the udp stream
+		    std::cout << "Acquired lock. receiving." << std::endl;
+		    std::vector<double> output = server.receive(); 
+		    std::cout << "Received." << std::endl;
+
+		    // there is no table, so this will be empty
 		    std::stringstream s(server.buffer);
 		    //time = output[0]; // probably a double
 		    //SimTK::readUnformatted<SimTK::Vector>(s, frame);// I will keep
@@ -70,7 +72,7 @@ void UIMUInputDriver::startListening() {
             cond.notify_one();
 
         } catch (const std::exception& e) {
-            std::cout << e.what() << std::endl;
+            std::cout << "Failed in acquiring thread." << e.what() << std::endl;
 
             terminationFlag = true;
             cond.notify_one();
@@ -78,7 +80,7 @@ void UIMUInputDriver::startListening() {
     };
     t = std::thread(f);
     // this is threaded, so this guy should work too!
-    std::cout << "did this as well!" << std::endl;
+    std::cout << "Acquisition thread ended!" << std::endl;
 }
 
 bool UIMUInputDriver::shouldTerminate() {
