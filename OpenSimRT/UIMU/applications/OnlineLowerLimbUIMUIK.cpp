@@ -95,12 +95,12 @@ void run() {
 
     SimTK::Vector zv; //zero vector
     std::istringstream is("0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 ");
-    readUnformatted (is, zv);
+    is >> zv;
 
-    //cout << "Attempt at showing." << endl;
-    //visualizer.update(zv);
-    //cout << "Showing successful." << endl;
-    writeUnformatted(cout, zv);
+    cout << "Attempt at showing." << endl;
+    visualizer.update(zv);
+    cout << "Showing successful." << endl;
+    cout << "zero vector: " << zv << endl;
 
 
     // mean delay
@@ -110,9 +110,9 @@ void run() {
     try { // main loop
         while (!(driver.shouldTerminate())) {
             // get input from sensors
-	    std::cout << "i do this" << std::endl;
+	    std::cout << "Getting frame:" << std::endl;
 	    auto imuData = driver.getFrame();
-	    std::cout << "and then this" << std::endl;
+	    std::cout << "Solving inverse kinematics:" << std::endl;
             numFrames++;
 
             // solve ik
@@ -128,16 +128,16 @@ void run() {
                                   .count();
 
             // visualize
-	    writeUnformatted(std::cout, pose.q);
-            throw;
+	    std::cout << "pose is:" << pose.q;
+            
 	    visualizer.update(pose.q);
-	    std::cout << "nd then i should have shown somethin" << std::endl;
+	    std::cout << "Visualization successful." << std::endl;
 	    
             // record
             qLogger.appendRow(pose.t, ~pose.q);
         }
     } catch (std::exception& e) {
-        cout << e.what() << endl;
+        cout << "Crashed while executing main loop. " << e.what() << endl;
 
         driver.shouldTerminate(true);
     }
@@ -153,7 +153,7 @@ int main(int argc, char* argv[]) {
     try {
         run();
     } catch (exception& e) {
-        cout << e.what() << endl;
+        cout << "Program crashed while running. Reason: " << e.what() << endl;
         return -1;
     }
     return 0;
