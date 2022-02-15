@@ -62,12 +62,12 @@ bool SimpleServer::receive()
 	n = recvfrom(sockfd, (char *)buffer, buffersize,
 				MSG_WAITALL, ( struct sockaddr *) &cliaddr,
 				&len);
+	//now I need to find if there is the word BYE in it
+	if (buffer == "BYE!")
+		return false;
 	buffer[n] = '\0';
         std::stringstream ss;
 	ss << buffer;
-	//now I need to find if there is the word BYE in it
-	if (ss == "BYE!")
-		return false;
 	std::istream_iterator<std::string> begin(ss), end;
 	std::vector<std::string> vstrings(begin, end);
 	//std::copy(vstrings.begin(), vstrings.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
