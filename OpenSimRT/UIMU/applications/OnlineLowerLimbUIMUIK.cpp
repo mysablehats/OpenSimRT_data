@@ -33,7 +33,8 @@
 #include "Visualization.h"
 #include <Actuators/Thelen2003Muscle.h>
 #include <Common/TimeSeriesTable.h>
-#include <OpenSim/Common/STOFileAdapter.h>
+//#include <OpenSim/Common/STOFileAdapter.h>
+#include <OpenSim/Common/CSVFileAdapter.h>
 #include <signal.h> // only for debug. should be removed if it doesnt help
 
 using namespace std;
@@ -143,7 +144,8 @@ void run() {
     }
 
     cout << "Mean delay: " << (double) sumDelayMS / numFrames << " ms" << endl;
-
+    
+    CSVFileAdapter::write( qLogger, "test_lower.csv");
     // // store results
     // STOFileAdapter::write(
     //         qLogger, subjectDir + "real_time/inverse_kinematics/q_imu.sto");

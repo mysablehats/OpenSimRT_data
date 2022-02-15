@@ -31,7 +31,8 @@
 #include "Settings.h"
 #include "Visualization.h"
 #include <Actuators/Schutte1993Muscle_Deprecated.h>
-#include <OpenSim/Common/STOFileAdapter.h>
+#include <OpenSim/Common/CSVFileAdapter.h>
+//#include <OpenSim/Common/STOFileAdapter.h>
 
 using namespace std;
 using namespace OpenSim;
@@ -131,6 +132,8 @@ void run() {
 
     cout << "Mean delay: " << (double) sumDelayMS / numFrames << " ms" << endl;
 
+    CSVFileAdapter::write( qLogger, "test_upper.csv");
+    
     // // store results
     // STOFileAdapter::write(
     //         qLogger, subjectDir + "real_time/inverse_kinematics/q_imu.sto");
