@@ -34,6 +34,7 @@
 #include <Actuators/Thelen2003Muscle.h>
 #include <Common/TimeSeriesTable.h>
 #include <OpenSim/Common/STOFileAdapter.h>
+#include <signal.h> // only for debug. should be removed if it doesnt help
 
 using namespace std;
 using namespace OpenSim;
@@ -41,6 +42,7 @@ using namespace OpenSimRT;
 using namespace SimTK;
 
 void run() {
+	signal(SIGPIPE,SIG_IGN); // I think I only need this to debug. remove if it doesn't change anythign
     INIReader ini(INI_FILE);
     auto section = "LOWER_LIMB_NGIMU_OFFLINE";
 
