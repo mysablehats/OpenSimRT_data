@@ -63,9 +63,14 @@ bool SimpleServer::receive()
 				MSG_WAITALL, ( struct sockaddr *) &cliaddr,
 				&len);
 	//now I need to find if there is the word BYE in it
-	if (buffer == "BYE!")
-		return false;
 	buffer[n] = '\0';
+        printf("Client : %s\n", buffer);
+        if (strcmp(buffer, "BYE!") == 0 )
+        {
+               std::cout << "received goodbye SS OK." << std::endl;
+               return false;
+        }
+
         std::stringstream ss;
 	ss << buffer;
 	std::istream_iterator<std::string> begin(ss), end;

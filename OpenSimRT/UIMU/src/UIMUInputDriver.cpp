@@ -47,6 +47,7 @@ void UIMUInputDriver::startListening() {
 		    std::cout << "Acquired lock. receiving." << std::endl;
 		    if (! server.receive()){
 			    std::cout << "Received goodbye message!" << std::endl;
+			    terminationFlag = true;
 			    break;
 		    }
 		    std::vector<double> output = server.output; 
