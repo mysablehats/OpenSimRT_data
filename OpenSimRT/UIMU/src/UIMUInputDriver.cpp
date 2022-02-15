@@ -45,7 +45,10 @@ void UIMUInputDriver::startListening() {
                     std::lock_guard<std::mutex> lock(mu);
 		    // get something from the udp stream
 		    std::cout << "Acquired lock. receiving." << std::endl;
-		    std::vector<double> output = server.receive(); 
+		    if (server.receive())
+			    break;
+
+		    std::vector<double> output = server.output; 
 		    std::cout << "Received." << std::endl;
 
 		    // there is no table, so this will be empty

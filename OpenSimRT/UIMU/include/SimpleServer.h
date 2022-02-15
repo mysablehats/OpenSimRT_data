@@ -18,7 +18,9 @@ class SimpleServer {
 	int buffersize;
 	socklen_t sockfd, len, n;
 	struct sockaddr_in servaddr, cliaddr;	
+	//std::vector<double> receive();
+	bool receive();
+	std::vector<double> output;
 
-	std::vector<double> receive();
 };
 
