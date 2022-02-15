@@ -93,6 +93,16 @@ void run() {
     // visualizer
     BasicModelVisualizer visualizer(model);
 
+    SimTK::Vector zv; //zero vector
+    std::istringstream is("0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 ");
+    readUnformatted (is, zv);
+
+    //cout << "Attempt at showing." << endl;
+    //visualizer.update(zv);
+    //cout << "Showing successful." << endl;
+    writeUnformatted(cout, zv);
+
+
     // mean delay
     int sumDelayMS = 0;
     int numFrames = 0;
@@ -119,7 +129,8 @@ void run() {
 
             // visualize
 	    writeUnformatted(std::cout, pose.q);
-            visualizer.update(pose.q);
+            throw;
+	    visualizer.update(pose.q);
 	    std::cout << "nd then i should have shown somethin" << std::endl;
 	    
             // record

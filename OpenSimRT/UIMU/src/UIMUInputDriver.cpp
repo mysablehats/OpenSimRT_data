@@ -96,15 +96,15 @@ UIMUInputDriver::fromVector(const Vector& v) const {
     UIMUData data;
     int n = UIMUData::size();
 
-    std::cout << v << std::endl;
-    std::cout << "size of UIMUData: " << n ;
-    std::cout << "size of v: " << v.size();
+    //std::cout << v << std::endl;
+    //std::cout << "size of UIMUData: " << n  << std::endl;
+    //std::cout << "size of v: " << v.size() << std::endl;
 
     for (int i = 0; i < v.size(); i += n) {
         data.fromVector(v(i, n));
         list.push_back(data);
 	//i have 8 right now so this should tell me 8
-	std::cout << i << "number of vectors I pushed back" << std::endl;
+	//std::cout << i << "number of vectors I pushed back" << std::endl;
     }
     return list;
 }

@@ -73,12 +73,12 @@ std::vector<double> SimpleServer::receive()
 	{
 		myvec.push_back(std::stod(a_str));
 	}
+	////THIS IS KINDA WORKING. I THINK
+	//for (auto a_double : myvec )
+	//	std::cout << a_double << "|";
+	//std::cout << std::endl ;
 
-	for (auto a_double : myvec )
-		std::cout << a_double << "|";
-	std::cout << std::endl ;
-
-	printf("Client : %s\n", buffer);
+	//printf("Client : %s\n", buffer);
 	sendto(sockfd, (const char *)hello, strlen(hello),
 		MSG_CONFIRM, (const struct sockaddr *) &cliaddr,
 			len);
