@@ -103,6 +103,7 @@ void run() {
     cout << "Showing successful." << endl;
     cout << "zero vector: " << zv << endl;
 
+    bool VISUALIZATION = true;
 
     // mean delay
     int sumDelayMS = 0;
@@ -115,6 +116,9 @@ void run() {
 	    auto imuData = driver.getFrame();
 	    std::cout << "Solving inverse kinematics:" << std::endl;
             numFrames++;
+
+            if (driver.shouldTerminate())
+                    break;
 
             // solve ik
             chrono::high_resolution_clock::time_point t1;
@@ -130,10 +134,11 @@ void run() {
 
             // visualize
 	    std::cout << "pose is:" << pose.q;
-            
-	    visualizer.update(pose.q);
-	    std::cout << "Visualization successful." << std::endl;
-	    
+            if(VISUALIZATION)
+	    {
+		    visualizer.update(pose.q);
+	    	    std::cout << "Visualization successful." << std::endl;
+	    }
             // record
             qLogger.appendRow(pose.t, ~pose.q);
         }
