@@ -85,6 +85,13 @@ class  UIMUInputDriver : public InputDriver<UIMUData> {
     // Simple UDP server implementation
     SimpleServer server;
 
+    OpenSim::TimeSeriesTable initializeLogger() const;
+
+    // buffers
+    SimTK::RowVector frame;
+    double time;
+
+    std::vector<std::string> imu_names;
 
  protected:
     /**
@@ -100,10 +107,7 @@ class  UIMUInputDriver : public InputDriver<UIMUData> {
     //std::vector<double> output;
 
     double rate;
-    
-    // buffers
-    SimTK::RowVector frame;
-    double time;
+
 
     // thread related variables
     std::thread t;
@@ -113,3 +117,4 @@ class  UIMUInputDriver : public InputDriver<UIMUData> {
     mutable bool newRow = false;
 };
 } // namespace OpenSimRT
+

@@ -80,6 +80,7 @@ void run() {
     //UIMUInputDriver driver(ngimuDataFile, rate);
     UIMUInputDriver driver(8080, rate);
     driver.startListening();
+    auto imuLogger = driver.initializeLogger();
 
     // calibrator
     IMUCalibrator clb(model, &driver, imuObservationOrder);
@@ -122,6 +123,7 @@ void run() {
             visualizer.update(pose.q);
 
             // record
+            imuLogger.appendRow(pose.t, driver.frame);//
             qLogger.appendRow(pose.t, ~pose.q);
         }
     } catch (std::exception& e) {
@@ -133,7 +135,8 @@ void run() {
     cout << "Mean delay: " << (double) sumDelayMS / numFrames << " ms" << endl;
 
     CSVFileAdapter::write( qLogger, "test_upper.csv");
-    
+    CSVFileAdapter::write( imuLogger, "test_upper_imus.csv");
+
     // // store results
     // STOFileAdapter::write(
     //         qLogger, subjectDir + "real_time/inverse_kinematics/q_imu.sto");
@@ -148,3 +151,4 @@ int main(int argc, char* argv[]) {
     }
     return 0;
 }
+

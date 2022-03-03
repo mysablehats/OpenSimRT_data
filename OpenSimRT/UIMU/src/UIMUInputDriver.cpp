@@ -27,49 +27,52 @@ using namespace SimTK;
 
 UIMUInputDriver::UIMUInputDriver(const int port,
                                                    const double& sendRate)
-        :server(port, 4096), rate(sendRate), terminationFlag(false) {}
+        :server(port, 4096), rate(sendRate), terminationFlag(false) {
+        imu_names = {"torax", "humerus", "radius" };
 
-	// i maybe want to start the server!
+        }
+
+        // i maybe want to start the server!
 
 UIMUInputDriver::~UIMUInputDriver() { t.join(); }
 
 void UIMUInputDriver::startListening() {
     static auto f = [&]() {
         try {
-	    int i = 0;
-	    std::cout << "Rate: " << rate << std::endl ;
+            int i = 0;
+            std::cout << "Rate: " << rate << std::endl ;
             for (;;) {
                 if (shouldTerminate())
                     THROW_EXCEPTION("??? this is not great. File stream terminated.");
                 {
                     std::lock_guard<std::mutex> lock(mu);
-		    // get something from the udp stream
-		    std::cout << "Acquired lock. receiving." << std::endl;
-		    if (! server.receive()){
-			    std::cout << "Received goodbye message!" << std::endl;
-			    terminationFlag = true;
-			    break;
-		    }
-		    std::vector<double> output = server.output; 
-		    std::cout << "Received." << std::endl;
+                    // get something from the udp stream
+                    std::cout << "Acquired lock. receiving." << std::endl;
+                    if (! server.receive()){
+                            std::cout << "Received goodbye message!" << std::endl;
+                            terminationFlag = true;
+                            break;
+                    }
+                    std::vector<double> output = server.output;
+                    std::cout << "Received." << std::endl;
 
-		    // there is no table, so this will be empty
-		    std::stringstream s(server.buffer);
-		    //time = output[0]; // probably a double
-		    //SimTK::readUnformatted<SimTK::Vector>(s, frame);// I will keep
+                    // there is no table, so this will be empty
+                    std::stringstream s(server.buffer);
+                    //time = output[0]; // probably a double
+                    //SimTK::readUnformatted<SimTK::Vector>(s, frame);// I will keep
 
-		    table.appendRow(output[0], output.begin()+1, output.end()); // superflex!
-		    //table.getMatrix()[0]; // OpenSim::TimeSeriesTable 
-		//this will crash because table was not initialized.
+                    table.appendRow(output[0], output.begin()+1, output.end()); // superflex!
+                    //table.getMatrix()[0]; // OpenSim::TimeSeriesTable
+                //this will crash because table was not initialized.
                     time = table.getIndependentColumn()[i];
                     frame = table.getMatrix()[i];
                     newRow = true;
-		    i++;
+                    i++;
                 }
                 cond.notify_one();
 
                 // artificial delay
-		// maybe i don't need this.
+                // maybe i don't need this.
                 std::this_thread::sleep_for(std::chrono::milliseconds(
                         static_cast<int>(1 / rate * 1000)));
             }
@@ -110,8 +113,8 @@ UIMUInputDriver::fromVector(const Vector& v) const {
     for (int i = 0; i < v.size(); i += n) {
         data.fromVector(v(i, n));
         list.push_back(data);
-	//i have 8 right now so this should tell me 8
-	//std::cout << i << "number of vectors I pushed back" << std::endl;
+        //i have 8 right now so this should tell me 8
+        //std::cout << i << "number of vectors I pushed back" << std::endl;
     }
     return list;
 }
@@ -138,3 +141,26 @@ std::pair<double, Vector> UIMUInputDriver::getFrameAsVector() const {
 
     return std::make_pair(time, frame.getAsVector());
 }
+
+OpenSim::TimeSeriesTable UIMUInputDriver::initializeLogger() const {
+        std::vector<std::string> suffixes = {
+            "_q1",       "_q2",       "_q3",      "_q4",        "_ax",
+            "_ay",       "_az",       "_gx",      "_gy",        "_gz",
+            "_mx",       "_my",       "_mz",      "_barometer", "_linAcc_x",
+            "_linAcc_y", "_linAcc_z", "_altitude"};
+
+    // create column names for each combination of imu names and measurement
+    // suffixes
+        std::vector<std::string> columnNames;
+    for (const auto& imu : imu_names) {
+        for (const auto& suffix : suffixes) {
+            columnNames.push_back(imu + suffix);
+        }
+    }
+
+    // return table
+    OpenSim::TimeSeriesTable q;
+    q.setColumnLabels(columnNames);
+    return q;
+}
+
