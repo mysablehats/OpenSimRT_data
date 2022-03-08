@@ -12,3 +12,5 @@ install/
 *.pyc
 .vscode/
 /.cache/
+
+env.sh
