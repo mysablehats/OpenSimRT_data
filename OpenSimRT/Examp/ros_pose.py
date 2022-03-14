@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+# from https://answers.ros.org/question/316829/how-to-publish-a-pose-in-quaternion/?answer=316844#post-id-316844
 import rospy
 from geometry_msgs.msg import Pose
 
