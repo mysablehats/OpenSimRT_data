@@ -36,11 +36,18 @@
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "geometry_msgs/Pose.h"
+
+#include <tf2/LinearMath/Quaternion.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 using namespace std;
 using namespace OpenSim;
 using namespace OpenSimRT;
 using namespace SimTK;
+
+ros::Publisher chatter_pub;
+ros::Publisher poser_pub;
 
 void run() {
     INIReader ini(INI_FILE);
@@ -98,7 +105,7 @@ void run() {
 
     // visualizer
     ModelVisualizer::addDirToGeometrySearchPaths(DATA_DIR + "/geometry_mobl/");
-    BasicModelVisualizer visualizer(model);
+    //BasicModelVisualizer visualizer(model);
 
     // mean delay
     int sumDelayMS = 0;
@@ -116,6 +123,27 @@ void run() {
 
             auto pose = ik.solve(
                     {imuData.first, {}, clb.transform(imuData.second)});
+	    
+	    std_msgs::String msg;
+	    std::stringstream ss;
+	    //pose is something i can send to cout i think, so this should give me something
+	    //
+	    //ss << "hello world " << endl;
+	    ss << pose.q[0] << pose.q[1] << pose.q[2];
+
+	    geometry_msgs::Pose pp;
+
+	    
+	    tf2::Quaternion myQuaternion;
+            myQuaternion.setRPY( pose.q[0], pose.q[1], pose.q[2]);  // Create this quaternion from roll/pitch/yaw (in radians)
+	    geometry_msgs::Quaternion quat_msg = tf2::toMsg(myQuaternion);
+	    
+	    pp.orientation = quat_msg;
+	    poser_pub.publish(pp);
+
+	    msg.data = ss.str();
+	    ROS_INFO("%s", msg.data.c_str());
+	    chatter_pub.publish(msg);
 
             chrono::high_resolution_clock::time_point t2;
             t2 = chrono::high_resolution_clock::now();
@@ -123,7 +151,7 @@ void run() {
                                   .count();
 
             // visualize
-            visualizer.update(pose.q);
+            //visualizer.update(pose.q);
 
             // record
             imuLogger.appendRow(pose.t, driver.frame);//
@@ -149,7 +177,8 @@ int main(int argc, char** argv) {
     try {
         ros::init(argc, argv, "talker");
         ros::NodeHandle n;
-        ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+       	chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+       	poser_pub = n.advertise<geometry_msgs::Pose>("poser", 1000);
         run();
     } catch (exception& e) {
         cout << e.what() << endl;
