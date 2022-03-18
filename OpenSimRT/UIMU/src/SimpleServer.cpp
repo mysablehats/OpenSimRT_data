@@ -64,7 +64,8 @@ bool SimpleServer::receive()
 				&len);
 	//now I need to find if there is the word BYE in it
 	buffer[n] = '\0';
-        printf("Client : %s\n", buffer);
+        //TODO: consider logging?
+	//printf("Client : %s\n", buffer);
         if (strcmp(buffer, "BYE!") == 0 )
         {
                std::cout << "received goodbye SS OK." << std::endl;
@@ -91,8 +92,10 @@ bool SimpleServer::receive()
 	sendto(sockfd, (const char *)hello, strlen(hello),
 		MSG_CONFIRM, (const struct sockaddr *) &cliaddr,
 			len);
-	printf("Hello message sent.\n");
+	//printf("Hello message sent.\n");
 	
+	//TODO: What to send?
+
 	output = myvec;
 	//return myvec;
 	return true;
