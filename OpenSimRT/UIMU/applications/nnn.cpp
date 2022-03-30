@@ -152,7 +152,7 @@ void run() {
   tf::Quaternion q;
   q.setRPY(pose.q[0], pose.q[1], pose.q[2]);
   transform.setRotation(q);
-  br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "torax"));
+  br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "map", "torax"));
 
 
 	    msg.data = ss.str();
