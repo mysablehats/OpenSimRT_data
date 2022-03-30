@@ -26,7 +26,7 @@ addlibrary(
   INCLUDES ${includes}
   SOURCES ${sources})
 
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs tf)
 # The genmsg package gives us the code generator macros
 find_package(genmsg REQUIRED)
 #find_package(roscpp REQUIRED)

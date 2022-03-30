@@ -36,10 +36,12 @@
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "geometry_msgs/Pose.h"
+#include "geometry_msgs/PoseStamped.h"
 
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf/transform_broadcaster.h>
+
 
 using namespace std;
 using namespace OpenSim;
@@ -111,6 +113,8 @@ void run() {
     int sumDelayMS = 0;
     int numFrames = 0;
 
+    static tf::TransformBroadcaster br;
+
     try { // main loop
         while (!driver.shouldTerminate()) {
             // get input from imus
@@ -129,17 +133,27 @@ void run() {
 	    //pose is something i can send to cout i think, so this should give me something
 	    //
 	    //ss << "hello world " << endl;
-	    ss << pose.q[0] << pose.q[1] << pose.q[2];
+	    ss << pose.q[0] << " " << pose.q[1] << " " << pose.q[2];
 
-	    geometry_msgs::Pose pp;
+//	    geometry_msgs::PoseStamped pp;
 
 	    
-	    tf2::Quaternion myQuaternion;
-            myQuaternion.setRPY( pose.q[0], pose.q[1], pose.q[2]);  // Create this quaternion from roll/pitch/yaw (in radians)
-	    geometry_msgs::Quaternion quat_msg = tf2::toMsg(myQuaternion);
-	    
-	    pp.orientation = quat_msg;
-	    poser_pub.publish(pp);
+//	    tf2::Quaternion myQuaternion;
+//            myQuaternion.setRPY(pose.q[0], pose.q[1], pose.q[2]);  // Create this quaternion from roll/pitch/yaw (in radians)
+//	    geometry_msgs::Quaternion quat_msg = tf2::toMsg(myQuaternion);
+	   
+//	    pp.header.frame_id = "torax";
+//	    pp.header.stamp = ros::Time::now();
+//	    pp.pose.orientation = quat_msg;
+//	    poser_pub.publish(pp);
+
+  tf::Transform transform;
+  transform.setOrigin( tf::Vector3(0.0, 0.0, 0.0) );
+  tf::Quaternion q;
+  q.setRPY(pose.q[0], pose.q[1], pose.q[2]);
+  transform.setRotation(q);
+  br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "world", "torax"));
+
 
 	    msg.data = ss.str();
 	    ROS_INFO("%s", msg.data.c_str());
