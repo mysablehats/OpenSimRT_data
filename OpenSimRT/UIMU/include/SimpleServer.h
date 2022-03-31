@@ -9,9 +9,12 @@
 #include <netinet/in.h>
 // trying to make a class out of the example so I can use this upd server 
 
+#include <ros/ros.h>
+#include <tf/transform_listener.h>
+
 class SimpleServer {
  public:
-	SimpleServer(int, int );
+	SimpleServer(int, int, bool );
 	~SimpleServer();
 	char* buffer;
 	char* hello;
@@ -21,6 +24,7 @@ class SimpleServer {
 	//std::vector<double> receive();
 	bool receive();
 	std::vector<double> output;
-
+	bool ImSimple;
+	tf::TransformListener listener;
 };
 

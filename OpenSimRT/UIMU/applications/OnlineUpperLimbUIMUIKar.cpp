@@ -53,7 +53,7 @@ ros::Publisher poser_pub;
 
 void run() {
     INIReader ini(INI_FILE);
-    auto section = "UPPER_LIMB_NGIMU_OFFLINE";
+    auto section = "UPPER_LIMB_AR";
     // imu calibration settings
     auto imuDirectionAxis = ini.getString(section, "IMU_DIRECTION_AXIS", "");
     auto imuBaseBody = ini.getString(section, "IMU_BASE_BODY", "");

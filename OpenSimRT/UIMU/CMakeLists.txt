@@ -8,6 +8,7 @@ file(
   GLOB applications
   applications/OnlineLowerLimbUIMUIK.cpp
   applications/OnlineUpperLimbUIMUIK.cpp
+  applications/OnlineUpperLimbUIMUIKar.cpp
   applications/nnn.cpp
 )
 # file(GLOB tests tests/*.cpp)
