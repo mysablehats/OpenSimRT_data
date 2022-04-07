@@ -118,21 +118,6 @@ void run() {
 
     try { // main loop
         while (!driver.shouldTerminate()) {
-		tf::StampedTransform transform_from_ar;
-		try{
-      			listener.lookupTransform("/map", "/ar_marker_10",  
-                               ros::Time(0), transform_from_ar);
-			auto myq = transform_from_ar.getRotation(); //quarternion, but which kind?
-	    		ROS_INFO_STREAM("Quat. from ar_marker_10: " 
-					<< myq.x() << " " 
-					<< myq.y() << " " 
-					<< myq.z() << " " 
-					<< myq.w() );
-   	 	}
-    		catch (tf::TransformException ex){
-      			ROS_ERROR("%s",ex.what());
-      			//ros::Duration(1.0).sleep();
-    		}
 
             // get input from imus
             auto imuData = driver.getFrame();
@@ -145,42 +130,8 @@ void run() {
             auto pose = ik.solve(
                     {imuData.first, {}, clb.transform(imuData.second)});
 	    
-	    std_msgs::String msg;
-	    std::stringstream ss;
-	    //pose is something i can send to cout i think, so this should give me something
-	    //
-	    //ss << "hello world " << endl;
-	    ss << pose.q[0] << " " << pose.q[1] << " " << pose.q[2];
-
-	    auto qqqq = imuData.second[0].getQuaternion();
-	    ROS_INFO_STREAM("QQQQ" << qqqq);
-	    //	    geometry_msgs::PoseStamped pp;
-
-	    
-	    //	    tf2::Quaternion myQuaternion;
-	    //            myQuaternion.setRPY(pose.q[0], pose.q[1], pose.q[2]);  // Create this quaternion from roll/pitch/yaw (in radians)
-	    //	    geometry_msgs::Quaternion quat_msg = tf2::toMsg(myQuaternion);
-	   
-	    //	    pp.header.frame_id = "torax";
-	    //	    pp.header.stamp = ros::Time::now();
-	    //	    pp.pose.orientation = quat_msg;
-	    //	    poser_pub.publish(pp);
-
-	    tf::Transform transform;
-	    transform.setOrigin( tf::Vector3(0.5, 0.0, 0.0) );
-	    tf::Quaternion q(qqqq[1],qqqq[2],qqqq[3],qqqq[0]); //x,y,z,w
-	    //tf::Quaternion q;
-	    //ROS_INFO("%f", pose.q[3]);
-	    //q.setRPY(pose.q[0], pose.q[1], pose.q[2]);
-	    transform.setRotation(q);
-	    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "map", "torax_imu"));
-
-
-	    msg.data = ss.str();
-	    //ROS_INFO("%s", msg.data.c_str());
-	    //chatter_pub.publish(msg);
-
-            chrono::high_resolution_clock::time_point t2;
+           
+	    chrono::high_resolution_clock::time_point t2;
             t2 = chrono::high_resolution_clock::now();
             sumDelayMS += chrono::duration_cast<chrono::milliseconds>(t2 - t1)
                                   .count();

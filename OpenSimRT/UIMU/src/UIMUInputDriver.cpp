@@ -61,16 +61,16 @@ void UIMUInputDriver::startListening() {
                             break;
                     }
                     std::vector<double> output = server.output;
-                    std::cout << "Received." << std::endl;
+                    //std::cout << "Received." << std::endl;
 
                     // there is no table, so this will be empty
                     //std::stringstream s(server.buffer);
                     //time = output[0]; // probably a double
                     //SimTK::readUnformatted<SimTK::Vector>(s, frame);// I will keep
 
-		    std::cout << output.size() << std::endl;
+		    //std::cout << output.size() << std::endl;
                     table.appendRow(output[0], output.begin()+1, output.end()); // superflex!
-		    std::cout << "added to table alright." << std::endl;
+		    //std::cout << "added to table alright." << std::endl;
 		    //table.getMatrix()[0]; // OpenSim::TimeSeriesTable
                 //this will crash because table was not initialized.
                     time = table.getIndependentColumn()[i];

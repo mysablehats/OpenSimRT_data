@@ -110,7 +110,7 @@ bool SimpleServer::receive()
 		//return myvec;
 		//for( auto i:myvec)
 		//	ROS_INFO_STREAM("THIS THING" << i);
-		ROS_INFO_STREAM("THIS THING:" << myvec.size());
+		//ROS_INFO_STREAM("THIS THING:" << myvec.size());
 		return true;
 	}
 	else
@@ -118,8 +118,8 @@ bool SimpleServer::receive()
 		//rosreceive its wrong it should be on a callback basis, 
 		tf::StampedTransform transform;
     		try{
-			listener.waitForTransform("/map", "/ar_marker_10", ros::Time(0), ros::Duration(3.0));
-      			listener.lookupTransform("/map", "/ar_marker_10",
+			listener.waitForTransform("/map", "/corrected", ros::Time(0), ros::Duration(3.0));
+      			listener.lookupTransform("/map", "/corrected",
                                		ros::Time(0), transform);
     		}
     		catch (tf::TransformException ex){
@@ -138,16 +138,16 @@ bool SimpleServer::receive()
 
 		for (int i=0; i<3; i++)
 		{
+			myvec.push_back(myq.z());
 			myvec.push_back(myq.x());
 			myvec.push_back(myq.y());
-			myvec.push_back(myq.z());
 			myvec.push_back(myq.w());
 			// now it is a bunch of zeros
 			myvec.insert(myvec.end(), 14, -0.010 );
 		}
 		//for( auto i:myvec)
 		//	ROS_INFO_STREAM("THIS THING" << i);
-		ROS_INFO_STREAM("THIS THING:" << myvec.size());
+		//ROS_INFO_STREAM("THIS THING:" << myvec.size());
 		
 		output = myvec;
 		return true;	
