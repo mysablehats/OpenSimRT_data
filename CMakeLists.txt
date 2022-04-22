@@ -2,7 +2,7 @@
 # setup
 
 cmake_minimum_required(VERSION 3.0)
-project(OpenSimRT VERSION 1.0.0)
+project(opensimrt VERSION 1.0.1)
 
 # cmake modules
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
