@@ -148,7 +148,6 @@ std::vector<double> readTransformIntoOpensim(std::string tf_name)
 	catch (tf::TransformException ex){
 		ROS_ERROR("%s",ex.what());
 		//ros::Duration(1.0).sleep();
-		return false;
 	}
 	std::vector<double> myvec;
 	// now i need to set this myvec with the values i read for the quaternions somehow
