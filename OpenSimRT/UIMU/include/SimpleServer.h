@@ -23,8 +23,10 @@ class SimpleServer {
 	struct sockaddr_in servaddr, cliaddr;	
 	//std::vector<double> receive();
 	bool receive();
-	std::vector<double> output;
 	bool ImSimple;
 	tf::TransformListener listener;
+	std::vector<double> output;
+	std::vector<double> readTransformIntoOpensim(std::string);
+	
 };
 
