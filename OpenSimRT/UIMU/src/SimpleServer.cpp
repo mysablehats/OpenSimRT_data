@@ -135,7 +135,7 @@ bool SimpleServer::receive()
 	}
 }
 
-std::vector<double> readTransformIntoOpensim(std::string tf_name)
+std::vector<double> SimpleServe::readTransformIntoOpensim(std::string tf_name)
 {
 
 	//rosreceive its wrong it should be on a callback basis, 
