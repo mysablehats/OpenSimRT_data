@@ -277,17 +277,17 @@ void run() {
          << endl;
 
     // // store results
-    // STOFileAdapter::write(
-    //         grfRightLogger,
-    //         subjectDir +
-    //                 "real_time/grfm_prediction/force_based/wrench_right.sto");
-    // STOFileAdapter::write(
-    //         grfLeftLogger,
-    //         subjectDir +
-    //                 "real_time/grfm_prediction/force_based/wrench_left.sto");
-    // STOFileAdapter::write(
-    //         tauLogger,
-    //         subjectDir + "real_time/grfm_prediction/force_based/tau.sto");
+     STOFileAdapter::write(
+             grfRightLogger,
+             subjectDir +
+                     "real_time/grfm_prediction/force_based/wrench_right2.sto");
+     STOFileAdapter::write(
+             grfLeftLogger,
+             subjectDir +
+                     "real_time/grfm_prediction/force_based/wrench_left2.sto");
+     STOFileAdapter::write(
+             tauLogger,
+             subjectDir + "real_time/grfm_prediction/force_based/tau.sto");
 
     // Relax tolerance because of floating point errors between target machines
     // (this fails on Windows).
