@@ -5,7 +5,14 @@ cmake_minimum_required(VERSION 3.0)
 project(opensimrt VERSION 1.0.1)
 
 # make this into a catkin package
-catkin_package()
+catkin_package(INCLUDE_DIRS 
+	OpenSimRT/Common/include
+	OpenSimRT/RealTime/include
+	OpenSimRT/UIMU/include
+	OpenSimRT/Vicon/include
+	)
+
+#include_directories() maybe this is already done
 
 # cmake modules
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
